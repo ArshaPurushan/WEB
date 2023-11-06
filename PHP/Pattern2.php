@@ -4,7 +4,7 @@
 	{
 		for($j=1;$j<=$i;$j++)
 		{
-			echo $i;	
+			echo $j;	
 		}
 		echo "<br>";
 	}	
