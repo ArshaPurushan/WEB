@@ -1,87 +1,131 @@
+<?php
+$list=array(array("id"=>1,"name"=>"akhil","MFC"=>49,"ASE"=>47,"DFCA"=>48,"ADS"=>49),
+ array("id"=>2,"name"=>"albert","MFC"=>37,"ASE"=>27,"DFCA"=>28,"ADS"=>39),
+ array("id"=>3,"name"=>"frestin","MFC"=>29,"ASE"=>17,"DFCA"=>28,"ADS"=>19));
+?>
 <html>
-	<head>
-		<title>Internal mark</title>
-		
-	</head>
-	<body>
-		<form method="POST" action="">
-		<center>
-		<br>
-		<table>
-		<tr>
-			<td>NAME</td>
-			<td><input type="text" name="t1" ></td>
-		</tr>
-		<tr>
-			<td>ROLL.NO</td>
-			<td><input type="number" name="t2"></td>
-		</tr>
-		
-		</table><br>
-		<table border="1">
-			<tr>
-				<th>SI.NO</th>
-				<th>SUBJECT</th>
-				<th>MARK</th>
-			</tr>
-			<tr>
-				<th>1</th>
-				<td>MATHEMATICS</td>
-				<td><input type="number" name="m1"></td>
-			</tr>
-			<tr>
-				<th>2</th>
-				<td>ENGLISH</td>
-				<td><input type="number" name="m2"></td>
-			</tr>
-			<tr>
-				<th>3</th>
-				<td>PHYSICS</td>
-				<td><input type="number" name="m3"></td>
-			</tr>
-			<tr>
-				<td colspan="3"><center><input type="submit" name="btn1" value="RESULT">&nbsp&nbsp
-							<input type="reset" name="btn2" value="CANCEL"></center>
-			</tr>
-		</table>  
-		</center>
-		
-		<?php
-			if(isset($_POST["btn1"]))
-			{
-			$name=$_POST["t1"];
-			$roll=$_POST["t2"];
-			$m1=$_POST["m1"];
-			$m2=$_POST["m2"];
-			$m3=$_POST["m3"];
-			$total=$m1+$m2+$m3;
-			
-			
-			$s=array($name,$roll)
-			$mark=array($m1,$m2,$m3);
-			int $i;
-			
-			}
-			
-			?>
-			
-			<form>
-				<h2>Session Examination</h2><br>
-				<table>
-					<tr>
-						<td>1</td>
-						<td>MATHEMATICS</td>
-						
-					</tr>
-				</table>
-			</form>
-			
-					
-		<?php
-			}	
-		
-		?>
-		
-		</form>	
-	</body>
+<head>
+ <title>INTERNAL MARKS</title>
+ <style>
+
+table{
+border:1px solid black;
+width:500px;
+}
+tr:nth-child(even){
+background-color:lightblue;
+}
+th,td{
+padding:10px;
+border:1px solid black;
+text-align:center;
+}
+body{
+font-family:sans-serif;
+}
+a{
+color:hotpink;
+padding:10px;
+display:inline-block;
+}
+a:hover {
+color:green;
+}
+</style>
+<body>
+ <h1 align="center">MAR ATHNASIUS COLLEGE OF ENGINEERING</h1><br>
+ <h1 align="center">SESSIONAL EXAM 1</h1><br>
+ <form method="POST" action="" align="center">
+  <table align="center" border="1">
+   <tr>
+    <td colspan="2">STUDENT DETAILS</td>
+   </tr>
+   <tr>
+    <td>Name</td>
+    <td><input type="text" name="n" placeholder="enter the name"></td>
+   </tr>
+   <tr>
+    <td>ROLLNO</td>
+    <td><input type="number" name="i" placeholder="enter the ID"></td>
+   </tr>
+  </table><br><br>
+ <input type="submit" name="next" value="SUBMIT">
+</form>
+<?php
+if(isset($_POST['next']))
+{
+ $total=50;
+ $fail=0;
+ $totalmarks=0;
+ foreach($list as $l)
+ {
+  if($l["id"]==$_POST['i'] && $l['name']==strtolower($_POST['n']))
+  {
+   ?>
+   <h3 align="center">NAME :<?php echo strtoupper($_POST['n']);?></h3>
+   <h3 align="center">ROLL NO:<?php echo $_POST['i'];?></h3>
+   <table align="center" border="1">
+   <tr>
+   <td>SUBJECT</td>
+   <td>MARKS</td>
+   <td>PASS/FAIL</td>
+   </tr>
+   <?php
+   foreach($l as $key=>$value)
+   {
+    if($key!="name" && $key!="id")
+    {
+    $totalmarks=$totalmarks+$value;
+    ?>
+     <tr>
+      <td><?php echo $key;?></td>
+      <td><?php echo $value;?></td>
+      <?php
+      if($value>=$total*0.5)
+      {
+      ?>
+      <td>PASS</td>
+      <?php
+      }
+      else
+      {
+      ?>
+      <td>FAIL</td>
+      <?php
+      $fail=1;
+      }
+      ?>
+      
+     </tr>
+    <?php
+    }
+
+   }?>
+   <tr>
+   <td>TOTAL</td>
+   <td><?php echo $totalmarks;?></td>
+   <?php
+   if($fail==1)
+   {
+   ?>
+   <td>FAIL</td>
+   <?php
+   }
+   else
+   {
+   ?>
+   <td>PASS</td>
+   <?php
+   }
+   ?>
+   </tr>
+   </table>
+   <?php
+  }
+
+ }
+}
+?>
+</body>
+</head>
 </html>
